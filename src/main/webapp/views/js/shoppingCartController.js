@@ -6,6 +6,7 @@ shoppingCartControllers.controller('showShoppingCartController',
     ['$scope', 'shoppingCartService','cartManagement', '$location', '$rootScope','$routeParams',
         function ($scope, shoppingCartService, cartManagement, $location, $rootScope,$rootParams)
       {
+          $scope.cart={"id":"","selectedProducts":"","purchaseDate":"","totalProductPrice":""}
         if ($rootScope.shoppingCart != null){
              $scope.cart = $rootScope.shoppingCart;
              }else {
@@ -48,7 +49,7 @@ shoppingCartControllers.controller('showShoppingCartController',
             var total = 0;
             angular.forEach($scope.cart.selectedProducts, function(item) {
                 total += item.amount * item.product.totalPrice;
-            })
+            });
 
             return total;
         }
