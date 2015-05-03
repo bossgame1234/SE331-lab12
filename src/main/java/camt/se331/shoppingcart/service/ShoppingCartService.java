@@ -1,6 +1,8 @@
 package camt.se331.shoppingcart.service;
 
+import camt.se331.shoppingcart.entity.Product;
 import camt.se331.shoppingcart.entity.ShoppingCart;
+import camt.se331.shoppingcart.entity.User;
 
 import java.util.Date;
 import java.util.List;
@@ -14,4 +16,6 @@ public interface ShoppingCartService {
     List<ShoppingCart> getShoppingCartBetween(Date stateDate, Date stopDate);
     ShoppingCart addShoppingCart(ShoppingCart shoppingCart);
     ShoppingCart deleteShoppingCart(ShoppingCart shoppingCart);
+    ShoppingCart addSelectedProduct(ShoppingCart shoppingCart,Product product);
+
 }

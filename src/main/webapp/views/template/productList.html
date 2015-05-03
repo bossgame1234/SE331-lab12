@@ -43,7 +43,7 @@
             <th class="text-center" translate>listProduct.picture</th>
             <th translate ng-show="hasRole('admin')">listProduct.edit</th>
             <th translate ng-show="hasRole('admin')">listProduct.delete</th>
-
+            <th translate ng-show="hasRole('user')">listProduct.addToCart</th>
         </tr>
         <tr ng-repeat="product in products">
             <td>{{$index+1}}</td>
@@ -58,6 +58,7 @@
             </td>
             <td class="text-center" ng-show="hasRole('admin')"><a ng-href="#/editProduct/{{product.id}}"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
             <td class="text-center" ng-show="hasRole('admin')"><a ng-href="#/listProduct"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="deleteProduct(product.id)"></span></a></td>
+            <td class="text-center" ng-show="hasRole('user')"><a><span aria-hidden="true" ng-click="addToCart(product)">addProduct</span></a></td>
         </tr>
         <tr>
             <th></th>

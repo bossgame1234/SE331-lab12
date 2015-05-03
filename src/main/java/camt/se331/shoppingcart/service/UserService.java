@@ -1,5 +1,6 @@
 package camt.se331.shoppingcart.service;
 
+import camt.se331.shoppingcart.entity.ShoppingCart;
 import camt.se331.shoppingcart.entity.User;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface UserService {
     public User findByUserName(String username);
     public User findUserByEmail(String username);
     public User login(String email, String password);
+    public ShoppingCart addShoppingCart(User user, ShoppingCart shoppingCart);
+    public List<ShoppingCart> getShoppingCart(User user);
 }

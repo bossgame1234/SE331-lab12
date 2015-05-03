@@ -1,7 +1,10 @@
 package camt.se331.shoppingcart.service;
 
 import camt.se331.shoppingcart.dao.ShoppingCartDao;
+import camt.se331.shoppingcart.entity.Product;
+import camt.se331.shoppingcart.entity.SelectedProduct;
 import camt.se331.shoppingcart.entity.ShoppingCart;
+import camt.se331.shoppingcart.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,4 +46,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     public ShoppingCart deleteShoppingCart(ShoppingCart shoppingCart) {
        return null;
     }
+
+    @Override
+    public ShoppingCart addSelectedProduct(ShoppingCart shoppingCart, Product product) {
+        for(SelectedProduct selectedProduct:shoppingCart.getSelectedProducts()){
+            if(selectedProduct.getProduct().equals(product)){
+                selectedProduct.setAmount(selectedProduct.getAmount()+1);
+                return shoppingCart;
+            }
+        }
+        SelectedProduct selectedProduct = new SelectedProduct(product,1);
+        shoppingCart.getSelectedProducts().add(selectedProduct);
+        return  shoppingCart;
+    }
+
+
+
+
+
 }

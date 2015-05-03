@@ -70,5 +70,6 @@ public class UserAuthenticationController {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         return new TokenTransfer(TokenUtils.createToken(userDetails));
     }
+
 }
 

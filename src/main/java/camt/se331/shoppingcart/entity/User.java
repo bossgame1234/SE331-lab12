@@ -1,6 +1,7 @@
 package camt.se331.shoppingcart.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,6 +27,18 @@ public class User {
     // Cascade and CascadeType must be the org.hibernate.annotation
     @Cascade(CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    @Cascade(CascadeType.ALL)
+    @JsonManagedReference
+    private Set<ShoppingCart> shoppingCarts;
+
+    public Set<ShoppingCart> getShoppingCarts() {
+        return shoppingCarts;
+    }
+
+    public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+        this.shoppingCarts = shoppingCarts;
+    }
 
     public User() {
     }

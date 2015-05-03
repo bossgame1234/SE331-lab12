@@ -1,6 +1,7 @@
 'use strict';
 
-var productMainController = angular.module('productMainController', ['productServices']);
+var productMainController = angular.module('productMainController', ['productServices','shoppingCartServices']);
+
 
 productMainController.controller('addProductController', ['$scope', '$http', '$location', '$rootScope','productService',
     function ($scope, $http, $location, $rootScope,productService) {
@@ -29,13 +30,28 @@ productMainController.controller('addProductController', ['$scope', '$http', '$l
 
     }]);
 
-productMainController.controller('listProductController', ['$scope', '$http', '$rootScope','productService','$route','totalCalService','queryProductService',
-    function ($scope, $http, $rootScope,productService,$route,totalCalService,queryProductService) {
+productMainController.controller('listProductController', ['$scope', '$http',
+    '$rootScope','productService','$route','totalCalService','queryProductService','cartManagement','$location',
+    function ($scope, $http,$rootScope,productService,$route,totalCalService,queryProductService,cartManagement,$location) {
+
         //$http.get("/product/").success(function (data) {
         var data = productService.query(function(){
            // $scope.totalNetPrice= totalCalService.getTotalNetPrice(data);
             $scope.products = data;
         });
+        $scope.addToCart = function(product){
+            $rootScope.checkOrder = false;
+             product.images = null;
+             cartManagement.addToCart(product,function(shoppingCart){
+                 //success event
+                     $rootScope.shoppingCart = shoppingCart;
+                 $location.path("shoppingCart")
+
+                 },function(event){
+                 // fail event
+                     })
+
+             }
 
 
         $scope.$on('$locationChangeStart', function (event) {

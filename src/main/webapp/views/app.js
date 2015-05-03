@@ -9,7 +9,8 @@ var labApp = angular.module('labApp', [
     'pascalprecht.translate',
     'shoppingCartControllers',
     'flow',
-    'securityControllers'
+    'securityControllers',
+    'shoppingCartServices'
 ])
 labApp.config(['$routeProvider',
   function($routeProvider) {
@@ -29,6 +30,14 @@ labApp.config(['$routeProvider',
       when('/shoppingCart/:id',{
           templateUrl: 'template/shoppingCart.html',
           controller: 'showShoppingCartController'
+      }).
+      when('/shoppingCart',{
+          templateUrl: 'template/shoppingCart.html',
+          controller: 'showShoppingCartController'
+      }).
+      when('/historyCart',{
+          templateUrl: 'template/shoppingCartHistory.html',
+          controller: 'shoppingCartHistoryController'
       }).
        otherwise({redirectTo: '/listProduct'});
 }]);
@@ -103,7 +112,7 @@ labApp.config(['$locationProvider', '$httpProvider', function($locationProvider,
         }
     })
 
-}]).run(function($rootScope,$location,$cookieStore,UserService){
+}]).run(function($rootScope,$location,$cookieStore,UserService,cartManagement){
     $rootScope.$on('$viewContentLoaded',function(){
         delete $rootScope.error;
     });
@@ -121,10 +130,15 @@ labApp.config(['$locationProvider', '$httpProvider', function($locationProvider,
     }
 
     $rootScope.logout = function(){
+        if($rootScope.hasRole('user')) {
+            cartManagement.emptyCart(function () {
+                console.log("log out success");
+            });
+        }
         delete $rootScope.user;
-        delete $rootScope.authToken;
         $cookieStore.remove('authToken');
-        $location.path("/listProduct")
+
+        $location.path("/listProduct");
     }
 
     /* Try getting valid user from cookie or go to login page */
@@ -133,7 +147,7 @@ labApp.config(['$locationProvider', '$httpProvider', function($locationProvider,
     var authToken = $cookieStore.get('authToken');
     if (authToken != undefined){
         $rootScope.authToken = authToken;
-        UserSerivce.get(function(user){
+        UserService.get(function(user){
             $rootScope.user = user;
             $location.path(originalPath);
         })
