@@ -23,7 +23,6 @@ productMainController.controller('addProductController', ['$scope', '$http', '$l
 
                 $rootScope.addSuccess = true;
                 $location.path("listProduct");
-                $scope.$apply();
             });
         };
 
@@ -51,7 +50,7 @@ productMainController.controller('listProductController', ['$scope', '$http',
                  // fail event
                      })
 
-             }
+             };
 
 
         $scope.$on('$locationChangeStart', function (event) {
@@ -68,7 +67,7 @@ productMainController.controller('listProductController', ['$scope', '$http',
                     $route.reload();
                 })
             }
-        }
+        };
 
         $scope.searchProduct = function(name){
            queryProductService.query({name:name},function(data) {

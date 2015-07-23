@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ShoppingCart addShoppingCart(User user, ShoppingCart shoppingCart) {
         User currentUser = userRepository.findOne(user.getId());
-                currentUser.getShoppingCarts().add(shoppingCart);
                 shoppingCart.setUser(currentUser);
                 shoppingCartRepository.save(shoppingCart);
         return shoppingCart;

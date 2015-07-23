@@ -68,7 +68,6 @@ public class DatabaseInitializationBean implements InitializingBean {
 
 
         User admin = new User();
-        admin.setName("admin");
         admin.setUsername("admin");
         admin.setEmail("admin@yahoo.com");
         admin.setPassword("123456");
@@ -77,7 +76,6 @@ public class DatabaseInitializationBean implements InitializingBean {
         admin.setRoles(roles);
 
         User user = new User();
-        user.setName("user");
         user.setUsername("user");
         user.setEmail("user@yahoo.com");
         user.setPassword("123456");
